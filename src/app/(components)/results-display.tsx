@@ -22,11 +22,22 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
-function ResultsDisplay({ chartData }) {
-  const formatCurrency = (value) => {
+interface ChartDataPoint {
+  year: number;
+  value: number;
+  investment: number;
+}
+
+// Define the props interface for the component
+interface ResultsDisplayProps {
+  chartData: ChartDataPoint[];
+}
+
+function ResultsDisplay({ chartData }: ResultsDisplayProps) {
+  const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
+      currency: "USD"
     }).format(value);
   };
 
