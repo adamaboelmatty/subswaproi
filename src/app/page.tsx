@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, KeyboardEvent, ChangeEvent } from "react";
 import {
   Card,
   CardContent,
@@ -20,19 +20,25 @@ import ResultsDisplay from "./(components)/results-display";
 import AffiliateLinks from "./(components)/affiliate-links";
 import Testimonial from "./(components)/testimonial";
 
+interface ChartDataPoint {
+  year: number;
+  value: number;
+  investment: number;
+}
+
 function SubSwapROICalculator() {
-  const [monthlySubscriptions, setMonthlySubscriptions] = useState("");
-  const [investmentYears, setInvestmentYears] = useState("");
-  const [annualReturn, setAnnualReturn] = useState("");
-  const [chartData, setChartData] = useState([]);
-  const [showResults, setShowResults] = useState(false);
+  const [monthlySubscriptions, setMonthlySubscriptions] = useState<string>("");
+  const [investmentYears, setInvestmentYears] = useState<string>("");
+  const [annualReturn, setAnnualReturn] = useState<string>("");
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
+  const [showResults, setShowResults] = useState<boolean>(false);
 
   const calculateROI = () => {
     const monthlyInvestment = parseFloat(monthlySubscriptions);
     const years = parseInt(investmentYears);
     const returnRate = parseFloat(annualReturn) / 100;
 
-    const data = [];
+    const data: ChartDataPoint[] = [];
     let totalInvestment = 0;
     let currentValue = 0;
 
@@ -51,10 +57,16 @@ function SubSwapROICalculator() {
     setShowResults(true);
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       calculateROI();
     }
+  };
+
+  const handleInputChange = (setter: (value: string) => void) => (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setter(event.target.value);
   };
 
   return (
@@ -78,9 +90,10 @@ function SubSwapROICalculator() {
               Monthly Subscriptions ($)
             </Label>
             <Input
+              id="monthlySubscriptions"
               type="number"
               value={monthlySubscriptions}
-              onChange={(e) => setMonthlySubscriptions(e.target.value)}
+              onChange={handleInputChange(setMonthlySubscriptions)}
               onKeyPress={handleKeyPress}
               placeholder="e.g., 50"
               className="border-emerald-200 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-emerald-300"
@@ -94,9 +107,10 @@ function SubSwapROICalculator() {
               Investment Period (Years)
             </Label>
             <Input
+              id="investmentYears"
               type="number"
               value={investmentYears}
-              onChange={(e) => setInvestmentYears(e.target.value)}
+              onChange={handleInputChange(setInvestmentYears)}
               onKeyPress={handleKeyPress}
               placeholder="e.g., 10"
               className="border-emerald-200 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-emerald-300"
@@ -110,9 +124,10 @@ function SubSwapROICalculator() {
               Expected Annual Return (%)
             </Label>
             <Input
+              id="annualReturn"
               type="number"
               value={annualReturn}
-              onChange={(e) => setAnnualReturn(e.target.value)}
+              onChange={handleInputChange(setAnnualReturn)}
               onKeyPress={handleKeyPress}
               placeholder="e.g., 7"
               className="border-emerald-200 transition-all duration-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-emerald-300"
