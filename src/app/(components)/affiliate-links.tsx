@@ -22,25 +22,20 @@ function AffiliateLinks() {
       description: "Take control of your finances with these essential money management tools",
       links: [
         {
+          name: "SoFi",
+          description: "All-in-one platform for checking & savings accounts",
+          url: "https://www.sofi.com/invite/money?gcp=9c4ddc1e-fb3d-4898-bba7-b4b75dff80dd&isAliasGcp=false"
+        },
+        {
+          name: "Chime",
+          description: "Smart international money transfers",
+          url: "https://chime.com/r/adamaboelmatty"
+        },
+        {
           name: "Rocket Money",
           description: "Take control of your subscriptions and save more",
           url: "https://rocketmoney.com"
         },
-        {
-          name: "SoFi",
-          description: "All-in-one platform for banking & loans",
-          url: "https://www.sofi.com/referral-program/"
-        },
-        {
-          name: "Wise",
-          description: "Smart international money transfers",
-          url: "https://wise.com/partner/influencers"
-        },
-        {
-          name: "Quicken",
-          description: "Complete financial management software",
-          url: "https://www.quicken.com/affiliate"
-        }
       ],
       icon: <Wallet className="w-5 h-5" />
     },
@@ -48,11 +43,6 @@ function AffiliateLinks() {
       title: "Start Investing",
       description: "Begin your wealth-building journey with trusted investment platforms",
       links: [
-        {
-          name: "Robinhood",
-          description: "Commission-free stock investing",
-          url: "https://affiliates.robinhood.com/"
-        },
         {
           name: "Acorns",
           description: "Invest spare change automatically",
@@ -70,11 +60,6 @@ function AffiliateLinks() {
           description: "Free credit monitoring & recommendations",
           url: "https://app.impact.com/campaign-promo-signup/Credit-Karma-New-Members.brand"
         },
-        {
-          name: "CJ Affiliate",
-          description: "Access premium financial products",
-          url: "https://www.cj.com/join"
-        }
       ],
       icon: <CircleDollarSign className="w-5 h-5" />
     }
