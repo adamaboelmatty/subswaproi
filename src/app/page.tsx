@@ -15,8 +15,6 @@ import { Label } from "@/components/ui/label";
 import {
   DollarSign,
   TrendingUp,
-  AlertCircle,
-  ExternalLink,
 } from "lucide-react";
 import ResultsDisplay from "./(components)/results-display";
 import AffiliateLinks from "./(components)/affiliate-links";
@@ -34,7 +32,7 @@ function SubSwapROICalculator() {
     const years = parseInt(investmentYears);
     const returnRate = parseFloat(annualReturn) / 100;
 
-    let data = [];
+    const data = [];
     let totalInvestment = 0;
     let currentValue = 0;
 
