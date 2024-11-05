@@ -1,0 +1,98 @@
+import { Metadata } from 'next';
+import BlogPost from './BlogPost';
+
+// Schema.org structured data for rich search results
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "6 Financial Tools to Transform Your Spending into Wealth with SubSwapROI",
+  "description": "Discover how to transform your subscription spending into wealth with these 6 essential financial tools. Learn how SubSwapROI can help you visualize and achieve your financial goals.",
+  "image": "https://subswaproi.com/og-image.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Financial Expert",
+    "url": "https://subswaproi.com/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SubSwapROI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://subswaproi.com/logo.png"
+    }
+  },
+  "datePublished": new Date().toISOString(),
+  "dateModified": new Date().toISOString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://subswaproi.com/blog"
+  }
+};
+
+export const metadata: Metadata = {
+  title: '6 Financial Tools to Transform Your Spending into Wealth | SubSwapROI',
+  description: 'Discover how to transform your subscription spending into wealth with these 6 essential financial tools. Learn how SubSwapROI can help you visualize and achieve your financial goals.',
+  keywords: 'financial tools, wealth building, subscription management, investment calculator, ROI calculator, personal finance, Robinhood, Rocket Money, Quicken, SoFi, Credit Karma, Wise',
+  authors: [{ name: 'Financial Expert' }],
+  category: 'Finance',
+  
+  // Open Graph / Facebook metadata
+  openGraph: {
+    title: '6 Financial Tools to Transform Your Spending into Wealth',
+    description: 'Transform your subscription costs into lasting wealth with these powerful financial tools and SubSwapROI calculator.',
+    url: 'https://subswaproi.com/blog',
+    siteName: 'SubSwapROI',
+    images: [
+      {
+        url: 'https://subswaproi.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'SubSwapROI Financial Tools Blog Post',
+      },
+    ],
+    locale: 'en_US',
+    type: 'article',
+  },
+
+  // Twitter metadata
+  twitter: {
+    card: 'summary_large_image',
+    title: '6 Financial Tools to Transform Your Spending into Wealth',
+    description: 'Transform your subscription costs into lasting wealth with these powerful financial tools and SubSwapROI calculator.',
+    images: ['https://subswaproi.com/twitter-image.jpg'],
+    creator: '@subswaproi',
+    site: '@subswaproi',
+  },
+
+  // Additional metadata
+  alternates: {
+    canonical: 'https://subswaproi.com/blog',
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
+
+// Add structured data to the page
+export default function Page() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <BlogPost />
+    </>
+  );
+}
