@@ -239,7 +239,7 @@ function ResultsDisplay({ chartData }) {
         >
           This calculator provides an estimate based on consistent monthly
           investments and a fixed annual return rate. Actual results may vary
-          due to market fluctuations and other factors. It's always recommended
+          due to market fluctuations and other factors. It&as always recommended
           to consult with a financial advisor for personalized investment
           advice.
         </p>
