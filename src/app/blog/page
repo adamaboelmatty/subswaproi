@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
-import BlogPost from './BlogPost';
+import dynamic from 'next/dynamic';
 
-// Schema.org structured data for rich search results
+// Dynamically import BlogPost with no SSR to avoid hydration issues
+const BlogPost = dynamic(() => import('./BlogPost'), { ssr: false });
+
+// Schema.org structured data
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -29,14 +32,11 @@ const jsonLd = {
   }
 };
 
-export const metadata: Metadata = {
+export const metadata = {
   title: '6 Financial Tools to Transform Your Spending into Wealth | SubSwapROI',
   description: 'Discover how to transform your subscription spending into wealth with these 6 essential financial tools. Learn how SubSwapROI can help you visualize and achieve your financial goals.',
   keywords: 'financial tools, wealth building, subscription management, investment calculator, ROI calculator, personal finance, Robinhood, Rocket Money, Quicken, SoFi, Credit Karma, Wise',
-  authors: [{ name: 'Financial Expert' }],
-  category: 'Finance',
   
-  // Open Graph / Facebook metadata
   openGraph: {
     title: '6 Financial Tools to Transform Your Spending into Wealth',
     description: 'Transform your subscription costs into lasting wealth with these powerful financial tools and SubSwapROI calculator.',
@@ -54,7 +54,6 @@ export const metadata: Metadata = {
     type: 'article',
   },
 
-  // Twitter metadata
   twitter: {
     card: 'summary_large_image',
     title: '6 Financial Tools to Transform Your Spending into Wealth',
@@ -64,7 +63,6 @@ export const metadata: Metadata = {
     site: '@subswaproi',
   },
 
-  // Additional metadata
   alternates: {
     canonical: 'https://subswaproi.com/blog',
   },
@@ -82,17 +80,18 @@ export const metadata: Metadata = {
   },
 };
 
-// Add structured data to the page
 export default function Page() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
-        }}
-      />
-      <BlogPost />
-    </>
-  );
-}
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
+        <div className="blog-container">
+          <BlogPost />
+        </div>
+      </>
+    );
+  }

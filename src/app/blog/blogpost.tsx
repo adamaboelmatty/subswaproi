@@ -1,19 +1,24 @@
 'use client';
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Clock, Twitter, Facebook, } from "lucide-react";
+import { Calculator, Clock, Twitter, Facebook } from "lucide-react";
 import Link from "next/link";
+import Image from 'next/image';
 
-const READING_TIME_WPM = 200; // Average reading speed in words per minute
+const READING_TIME_WPM = 200;
 
 const BlogPost = () => {
-  // Calculate reading time
-  const content = document.getElementById('article-content')?.textContent;
-  const wordCount = content?.split(/\s+/).length || 0;
-  const readingTime = Math.ceil(wordCount / READING_TIME_WPM);
+  const [readingTime, setReadingTime] = useState(0);
 
-  // Social sharing functions
+  useEffect(() => {
+    // Move DOM manipulation to useEffect
+    const content = document.getElementById('article-content')?.textContent;
+    const wordCount = content?.split(/\s+/).length || 0;
+    setReadingTime(Math.ceil(wordCount / READING_TIME_WPM));
+  }, []);
+
+  // Social sharing functions stay the same
   const shareUrl = "https://subswaproi.com/blog";
   const shareTitle = "6 Financial Tools to Transform Your Spending into Wealth with SubSwapROI";
 
@@ -23,10 +28,6 @@ const BlogPost = () => {
 
   const shareOnFacebook = () => {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
-  };
-
-  const shareOnLinkedIn = () => {
-    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareTitle)}`, '_blank');
   };
 
   return (

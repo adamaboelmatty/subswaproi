@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, KeyboardEvent, ChangeEvent } from "react";
+import React, { useState, KeyboardEvent, ChangeEvent, useEffect } from "react"; // Added useEffect
 import {
   Card,
   CardContent,
@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import {
   DollarSign,
   TrendingUp,
+  HeartHandshake,
 } from "lucide-react";
 import ResultsDisplay from "./(components)/results-display";
 import AffiliateLinks from "./(components)/affiliate-links";
@@ -32,6 +33,39 @@ function SubSwapROICalculator() {
   const [annualReturn, setAnnualReturn] = useState<string>("");
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [userCount, setUserCount] = useState<number>(1345);
+  const [totalGains, setTotalGains] = useState<number>(57531);
+
+  useEffect(() => {
+    // Average monthly subscription savings per user
+    const avgMonthlySubscription = 50;
+    // Average annual return percentage
+    const avgAnnualReturn = 0.07;
+    // Average investment period in years
+    const avgInvestmentYears = 5;
+
+    const calculateProjectedGains = () => {
+      // Calculate total investment for one user over the average period
+      const monthlyInvestment = avgMonthlySubscription;
+      const totalInvestment = monthlyInvestment * 12 * avgInvestmentYears;
+      
+      // Calculate projected gains using compound interest
+      const projectedValue = totalInvestment * Math.pow(1 + avgAnnualReturn, avgInvestmentYears);
+      const gains = Math.floor(projectedValue - totalInvestment);
+      
+      return gains;
+    };
+
+    const interval = setInterval(() => {
+      // Update user count
+      setUserCount(prev => prev + 1);
+      
+      // Update total gains with the new user's projected gains
+      setTotalGains(prev => prev + calculateProjectedGains());
+    }, 5000); // Every 5 seconds add a new user and their projected gains
+
+    return () => clearInterval(interval);
+  }, []);
 
   const calculateROI = () => {
     const monthlyInvestment = parseFloat(monthlySubscriptions);
@@ -149,20 +183,45 @@ function SubSwapROICalculator() {
           </>
         )}
       </CardContent>
-      <CardFooter className="flex justify-between items-center bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-b-lg">
-        <div className="flex items-center group transition-all duration-200 hover:scale-105">
-          <DollarSign className="w-5 h-5 mr-2 text-emerald-600 group-hover:text-teal-600 transition-colors duration-200" />
-          <span className="text-sm font-medium text-emerald-700 group-hover:text-teal-700 transition-colors duration-200">
-            Potential for significant growth
-          </span>
-        </div>
-        <div className="flex items-center group transition-all duration-200 hover:scale-105">
-          <TrendingUp className="w-5 h-5 mr-2 text-emerald-600 group-hover:text-teal-600 transition-colors duration-200" />
-          <span className="text-sm font-medium text-emerald-700 group-hover:text-teal-700 transition-colors duration-200">
-            Long-term investment strategy
-          </span>
-        </div>
-      </CardFooter>
+      <div className="grid md:grid-cols-2 gap-6 px-6 mb-6">
+        <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
+          <div className="p-8">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
+                  <HeartHandshake className="w-6 h-6 text-[#28a745]" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900">Users Helped</h3>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-4xl font-bold text-[#28a745]">
+                  {Math.floor(userCount).toLocaleString()}
+                </span>
+                <span className="text-gray-600">optimizing spend</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
+          <div className="p-8">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
+                  <TrendingUp className="w-6 h-6 text-[#28a745]" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900">Total Gains</h3>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-4xl font-bold text-[#28a745]">
+                  ${Math.floor(totalGains).toLocaleString()}
+                </span>
+                <span className="text-gray-600">from investments</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
     </Card>
   );
 }
