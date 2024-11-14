@@ -28,12 +28,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllBlogPosts()
   const baseUrl = 'https://subswaproi.com'
 
-  const blogUrls = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8
-  }))
+  const blogUrls = posts
+    .filter((post): post is { slug: string; date: string } => post !== null)
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8
+    }))
 
   return [
     {
