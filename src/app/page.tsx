@@ -17,6 +17,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import ResultsDisplay from "./(components)/results-display";
+import ShareResults from "./(components)/share-results";
 import AffiliateLinks from "./(components)/affiliate-links";
 import Testimonial from "./(components)/testimonial";
 
@@ -168,53 +169,60 @@ function SubSwapROICalculator() {
           {showResults && (
             <>
               <ResultsDisplay chartData={chartData} />
+              <ShareResults 
+                monthlyAmount={parseFloat(monthlySubscriptions)}
+                years={parseInt(investmentYears)}
+                totalGains={chartData[chartData.length - 1]?.value || 0}
+              />
               <AffiliateLinks />
               <Testimonial />
             </>
           )}
-        </CardContent>
-        <div className="grid md:grid-cols-2 gap-6 px-6 mb-6">
-          <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
-            <div className="p-8">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
-                    <HeartHandshake className="w-6 h-6 text-[#28a745]" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900">Users Helped</h3>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-4xl font-bold text-[#28a745]">
-                    {Math.floor(userCount).toLocaleString()}
-                  </span>
-                  <span className="text-gray-600">optimizing spend</span>
-                </div>
-              </div>
-            </div>
-          </Card>
 
-          <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
-            <div className="p-8">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
-                    <TrendingUp className="w-6 h-6 text-[#28a745]" />
+          {!showResults && (
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
+                <div className="p-8">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
+                        <HeartHandshake className="w-6 h-6 text-[#28a745]" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900">Users Helped</h3>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-4xl font-bold text-[#28a745]">
+                        {Math.floor(userCount).toLocaleString()}
+                      </span>
+                      <span className="text-gray-600">optimizing spend</span>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900">Total Gains</h3>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-4xl font-bold text-[#28a745]">
-                    ${Math.floor(totalGains).toLocaleString()}
-                  </span>
-                  <span className="text-gray-600">from investments</span>
+              </Card>
+
+              <Card className="bg-emerald-50 border-none hover:shadow-md transition-shadow duration-200">
+                <div className="p-8">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-[#28a745] bg-opacity-10 rounded-full">
+                        <TrendingUp className="w-6 h-6 text-[#28a745]" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900">Total Gains</h3>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-4xl font-bold text-[#28a745]">
+                        ${Math.floor(totalGains).toLocaleString()}
+                      </span>
+                      <span className="text-gray-600">from investments</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Card>
             </div>
-          </Card>
-        </div>
+          )}
+        </CardContent>
       </Card>
 
-      {/* Product Hunt Badge - Outside the card */}
       <div className="mt-8 mb-8">
         <a 
           href="https://www.producthunt.com/posts/subswaproi-calculator?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-subswaproi&#0045;calculator" 

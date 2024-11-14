@@ -1,11 +1,11 @@
 // app/layout.tsx
-
 import React from 'react';
 import type { Metadata } from 'next';
 import "./globals.css";
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://subswaproi.com'), // Replace with your actual domain
+  metadataBase: new URL('https://subswaproi.com'),
   title: {
     default: 'SubSwap ROI | Calculate Your Subscription Savings Investment Potential',
     template: '%s | SubSwap ROI'
@@ -75,9 +75,24 @@ export default function Layout({ children }: LayoutProps) {
       <head>
         <meta name="theme-color" content="#28a745" />
         <link rel="canonical" href="https://subswaproi.com" />
+
+        {/* Plausible Analytics */}
+        <script
+          defer
+          data-domain="subswaproi.com"
+          src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
+          }}
+        />
       </head>
-      <body className="min-h-screen flex items-center justify-center bg-[#f8f9fa] font-['Inter',_sans-serif]">
-        {children}
+      <body className="min-h-screen flex flex-col bg-[#f8f9fa] font-['Inter',_sans-serif]">
+        <div className="flex-1 flex items-center justify-center">
+          {children}
+        </div>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
