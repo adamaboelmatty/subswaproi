@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, KeyboardEvent, ChangeEvent, useEffect } from "react";
-import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -28,7 +27,6 @@ interface ChartDataPoint {
 }
 
 function SubSwapROICalculator() {
-  const router = useRouter();
   const [monthlySubscriptions, setMonthlySubscriptions] = useState<string>("");
   const [investmentYears, setInvestmentYears] = useState<string>("");
   const [annualReturn, setAnnualReturn] = useState<string>("");
@@ -95,17 +93,7 @@ function SubSwapROICalculator() {
   };
 
   return (
-    <>
-<div className="fixed top-4 right-4">
-  <Button
-    variant="outline"
-    className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600"
-    onClick={() => router.push('/blog')}
-  >
-    Blog
-  </Button>
-</div>
-
+    <div className="flex flex-col items-center">
       <Card className="w-full max-w-3xl mx-auto transform transition-all duration-300 hover:shadow-lg">
         <CardHeader className="bg-gradient-to-r from-emerald-50 to-teal-50">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent transition-all duration-300 hover:scale-[1.01]">
@@ -225,7 +213,25 @@ function SubSwapROICalculator() {
           </Card>
         </div>
       </Card>
-    </>
+
+      {/* Product Hunt Badge - Outside the card */}
+      <div className="mt-8 mb-8">
+        <a 
+          href="https://www.producthunt.com/posts/subswaproi-calculator?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-subswaproi&#0045;calculator" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:opacity-90 transition-opacity"
+        >
+          <img 
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=614883&theme=light" 
+            alt="SubSwapROI Calculator - Reimagine Subscription Costs as Investments with SubSwapROI | Product Hunt"
+            width="250" 
+            height="54" 
+            style={{ width: '250px', height: '54px' }}
+          />
+        </a>
+      </div>
+    </div>
   );
 }
 

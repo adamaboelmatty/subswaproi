@@ -75,18 +75,6 @@ export default function Layout({ children }: LayoutProps) {
       <head>
         <meta name="theme-color" content="#28a745" />
         <link rel="canonical" href="https://subswaproi.com" />
-
-        {/* Plausible Analytics */}
-        <script
-          defer
-          data-domain="subswaproi.com"
-          src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`,
-          }}
-        />
       </head>
       <body className="min-h-screen flex items-center justify-center bg-[#f8f9fa] font-['Inter',_sans-serif]">
         {children}
